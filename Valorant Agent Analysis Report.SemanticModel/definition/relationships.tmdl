@@ -1,0 +1,8 @@
+relationship AutoDetected_7511e122-be6d-4c90-a0e3-3109f360ff41
+	fromColumn: 'Agent Information'.'Roles Id'
+	toColumn: Roles.'Roles Id'
+
+relationship AutoDetected_acd408b1-9f43-4ef2-8829-27351b5f9e33
+	fromColumn: 'Agent Abilities'.'Roles Id'
+	toColumn: Roles.'Roles Id'
+

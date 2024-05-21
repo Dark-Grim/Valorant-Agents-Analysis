@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Valorant Agent Analysis Report"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c364392f-35b3-4879-99de-2a51719ca49e"
+  }
+}
