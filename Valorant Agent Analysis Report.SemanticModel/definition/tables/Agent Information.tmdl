@@ -1,0 +1,86 @@
+table 'Agent Information'
+	lineageTag: 68ed811a-dfba-4572-98f5-38afd1d1596f
+
+	column 'No.'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8de3494a-0b55-40ef-b049-97f92872fc43
+		summarizeBy: sum
+		sourceColumn: No.
+
+		annotation SummarizationSetBy = Automatic
+
+	column Agent
+		dataType: string
+		lineageTag: 826fc5d8-0bca-44da-96d4-1920cb0834d8
+		summarizeBy: none
+		sourceColumn: Agent
+
+		annotation SummarizationSetBy = Automatic
+
+	column Role
+		dataType: string
+		lineageTag: 15051770-302f-4472-90c3-6d1e97eb5cf8
+		summarizeBy: none
+		sourceColumn: Role
+
+		annotation SummarizationSetBy = Automatic
+
+	column Origin
+		dataType: string
+		lineageTag: 69f56f6f-3a34-4fc6-8ca4-0091ded80866
+		summarizeBy: none
+		sourceColumn: Origin
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Release Patch'
+		dataType: string
+		lineageTag: 97459d2f-bf5c-4616-b66a-434bf597bb98
+		summarizeBy: none
+		sourceColumn: Release Patch
+
+		annotation SummarizationSetBy = Automatic
+
+	column Voice
+		dataType: string
+		lineageTag: c1625cb3-9809-4ea6-9653-9a2227778a86
+		summarizeBy: none
+		sourceColumn: Voice
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Roles Id'
+		dataType: int64
+		formatString: 0
+		lineageTag: cd37fd2b-bd39-4596-8205-ce4a69b46ffb
+		summarizeBy: none
+		sourceColumn: Roles Id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Agent Information' = m
+		mode: import
+		source = ```
+				let
+				    Source = Csv.Document(File.Contents("D:\Valorant Dataset\Data\AgentInformation.csv"),[Delimiter=",", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"No.", Int64.Type}, {"Agent", type text}, {"Role", type text}, {"Origin", type text}, {"Release Patch", type text}, {"Voice", type text}}),
+				    Custom2 = Table.AddColumn(#"Changed Type", "Roles Id", each let
+				        condition = {
+				          [Role] = "Controller", 
+				          [Role] = "Duelist", 
+				          [Role] = "Initiator", 
+				          [Role] = "Sentinel"
+				        }, 
+				        result = {1, 2, 3, 4}
+				      in
+				        result{List.PositionOf(condition, true)}, Int64.Type)
+				in
+				  Custom2
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
