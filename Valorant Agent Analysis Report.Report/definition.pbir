@@ -1,0 +1,9 @@
+{
+  "version": "4.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../Valorant Agent Analysis Report.SemanticModel"
+    },
+    "byConnection": null
+  }
+}

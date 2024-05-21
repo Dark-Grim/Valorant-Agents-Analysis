@@ -1,0 +1,74 @@
+table 'Agent Abilities'
+	lineageTag: ad905b38-f7e3-4c8c-bfd4-24fa7435df39
+
+	column 'Agent Name'
+		dataType: string
+		lineageTag: e01adc19-290f-440a-bdcc-d935db931ae7
+		summarizeBy: none
+		sourceColumn: Agent Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Agent Abilities'
+		dataType: string
+		lineageTag: d22868d6-a36d-4afc-b9c5-3ac9c14e5615
+		summarizeBy: none
+		sourceColumn: Agent Abilities
+
+		annotation SummarizationSetBy = Automatic
+
+	column Roles
+		dataType: string
+		lineageTag: f9721ac4-e864-4077-bd76-f7e1e810ac5c
+		summarizeBy: none
+		sourceColumn: Roles
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Roles Id'
+		dataType: int64
+		formatString: 0
+		lineageTag: 443fb6a5-0a19-4de1-b5bf-9e435b223941
+		summarizeBy: none
+		sourceColumn: Roles Id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Agent Abilities' = m
+		mode: import
+		source = ```
+				let
+				  Source = Csv.Document(
+				    File.Contents("D:\Valorant Dataset\Data\AgentAbilities.csv"), 
+				    [Delimiter = ",", Columns = 2, Encoding = 65001, QuoteStyle = QuoteStyle.None]
+				  ), 
+				  Custom1 = Table.PromoteHeaders(Source, [PromoteAllScalars = true]), 
+				  #"Changed Type" = Table.TransformColumnTypes(
+				    Custom1, 
+				    {{"Agent Name", type text}, {"Agent Abilities", type text}}
+				  ), 
+				  #"Added Custom" = Table.AddColumn(#"Changed Type", "Roles", each let
+				        roles = Text.Combine(
+				          List.Select(Text.Split([Agent Name], " "), each Text.StartsWith(_, "("))
+				        ), 
+				        trimBrackets = Text.Replace(Text.Replace(roles, "(", ""), ")", "")
+				      in
+				        trimBrackets, type text),
+				    Custom2 = Table.AddColumn(#"Added Custom", "Roles Id", each let
+				        condition = {
+				          [Roles] = "Controller", 
+				          [Roles] = "Duelist", 
+				          [Roles] = "Initiator", 
+				          [Roles] = "Sentinel"
+				        }, 
+				        result = {1, 2, 3, 4}
+				      in
+				        result{List.PositionOf(condition, true)}, Int64.Type)
+				in
+				  Custom2
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
