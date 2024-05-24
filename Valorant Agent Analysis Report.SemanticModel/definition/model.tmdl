@@ -6,11 +6,11 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-annotation PBI_QueryOrder = ["Agent Information","Roles","Agent Abilities"]
+annotation PBI_QueryOrder = ["Agent Information","Roles","Agent Abilities","Abilities Description","Description"]
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBIDesktopVersion = 2.128.1380.0 (24.04)
+annotation PBIDesktopVersion = 2.129.905.0 (24.05)
 
 annotation PBI_ProTooling = ["DevMode"]
 
@@ -18,4 +18,8 @@ ref table 'Agent Information'
 ref table DateTableTemplate_490f61ac-7d4f-4441-b220-aea3b5e925cb
 ref table Roles
 ref table 'Agent Abilities'
+ref table 'Abilities Description'
+ref table Description
+
+ref cultureInfo en-US
 

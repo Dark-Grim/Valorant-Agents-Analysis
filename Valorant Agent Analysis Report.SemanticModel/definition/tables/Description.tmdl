@@ -1,0 +1,68 @@
+table Description
+	lineageTag: 43ae3ef3-040a-4e92-9043-0367ea797835
+
+	column Desc
+		dataType: string
+		lineageTag: 65c0a2b6-31d5-44c5-ba12-4709a380aab6
+		summarizeBy: none
+		sourceColumn: Desc
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Default Controls'
+		dataType: string
+		lineageTag: 0df7120c-3845-4342-ad41-db420b1794c8
+		summarizeBy: none
+		sourceColumn: Default Controls
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ability Names'
+		dataType: string
+		lineageTag: 97cc065e-f898-46c3-8387-a20edc7d50ed
+		summarizeBy: none
+		sourceColumn: Ability Names
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Description = m
+		mode: import
+		source = ```
+				let
+				  Source = #"Abilities Description"[Get Descriptions], 
+				  #"Converted to Table" = Table.FromList(
+				    Source, 
+				    Splitter.SplitByNothing(), 
+				    null, 
+				    null, 
+				    ExtraValues.Error
+				  ), 
+				  #"Filtered Rows" = Table.SelectRows(#"Converted to Table", each ([Column1] <> null)), 
+				  Description = Table.TransformColumnTypes(#"Filtered Rows", {{"Column1", type text}}), 
+				  Custom1 = #"Abilities Description"[Get Controls], 
+				  #"Converted to Table1" = Table.FromList(
+				    Custom1, 
+				    Splitter.SplitByNothing(), 
+				    null, 
+				    null, 
+				    ExtraValues.Error
+				  ), 
+				  #"Filtered Rows1" = Table.SelectRows(#"Converted to Table1", each ([Column1] <> null)), 
+				  Controls = Table.TransformColumnTypes(#"Filtered Rows1", {{"Column1", type text}}), 
+				  CombinedTable = Table.FromColumns({Description[Column1], Controls[Column1]}, {"Desc", "Controls"}),
+				    #"Added Custom" = Table.AddColumn(CombinedTable, "Default Controls", each let 
+				textAfterDelimiter = Text.AfterDelimiter([Controls],"("),
+				textBeforeDelimiter = Text.BeforeDelimiter(textAfterDelimiter,")")
+				in 
+				textBeforeDelimiter, type text),
+				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Ability Names", each Text.Trim(Text.BeforeDelimiter([Controls],"(")," "), type text),
+				    #"Filtered Rows2" = Table.SelectRows(#"Added Custom1", each ([Default Controls] <> "Passive")),
+				    #"Removed Columns" = Table.RemoveColumns(#"Filtered Rows2",{"Controls"})
+				in
+				    #"Removed Columns"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

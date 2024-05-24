@@ -4,14 +4,14 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 0,
+        "x": 208,
         "y": 0
       },
       "nodes": [
         {
           "location": {
-            "x": 381,
-            "y": 374
+            "x": 303,
+            "y": 490.5
           },
           "nodeIndex": "Roles",
           "nodeLineageTag": "1fcf4f27-21d5-428e-853d-ba9a0680f531",
@@ -19,12 +19,12 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
         },
         {
           "location": {
-            "x": 18,
-            "y": 88
+            "x": 35,
+            "y": 147.5
           },
           "nodeIndex": "Agent Abilities",
           "nodeLineageTag": "ad905b38-f7e3-4c8c-bfd4-24fa7435df39",
@@ -32,20 +32,46 @@
             "height": 211,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 2
         },
         {
           "location": {
-            "x": 826,
-            "y": 62
+            "x": 721,
+            "y": 434.5
           },
           "nodeIndex": "Agent Information",
           "nodeLineageTag": "68ed811a-dfba-4572-98f5-38afd1d1596f",
           "size": {
             "height": 240,
+            "width": 217
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 771,
+            "y": 35
+          },
+          "nodeIndex": "Abilities Description",
+          "nodeLineageTag": "105e6661-30a5-4014-814e-de50b28ff3eb",
+          "size": {
+            "height": 176,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 459,
+            "y": 0
+          },
+          "nodeIndex": "Description",
+          "nodeLineageTag": "43ae3ef3-040a-4e92-9043-0367ea797835",
+          "size": {
+            "height": 259,
+            "width": 234
+          },
+          "zIndex": 4
         }
       ],
       "name": "All tables",

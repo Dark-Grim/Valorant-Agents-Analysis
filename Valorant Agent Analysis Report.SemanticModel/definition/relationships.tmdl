@@ -6,3 +6,9 @@ relationship AutoDetected_acd408b1-9f43-4ef2-8829-27351b5f9e33
 	fromColumn: 'Agent Abilities'.'Roles Id'
 	toColumn: Roles.'Roles Id'
 
+relationship fb849e4f-3bb6-7a60-3f18-842f16594b1c
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Description.'Ability Names'
+	toColumn: 'Agent Abilities'.'Ability Names'
+
