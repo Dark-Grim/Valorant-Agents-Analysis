@@ -75,9 +75,10 @@ table 'Agent Information'
 				        }, 
 				        result = {1, 2, 3, 4}
 				      in
-				        result{List.PositionOf(condition, true)}, Int64.Type)
+				        result{List.PositionOf(condition, true)}, Int64.Type),
+				    #"Reordered Columns" = Table.ReorderColumns(Custom2,{"Roles Id", "No.", "Agent", "Role", "Origin", "Release Patch", "Voice"})
 				in
-				  Custom2
+				  #"Reordered Columns"
 				```
 
 	annotation PBI_NavigationStepName = Navigation

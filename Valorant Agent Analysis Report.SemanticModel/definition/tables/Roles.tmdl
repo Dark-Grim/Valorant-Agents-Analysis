@@ -17,20 +17,20 @@ table Roles
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Roles Image Links'
-		dataType: string
-		lineageTag: c86ff8d6-889d-48e1-b764-d0a3627a2e33
-		summarizeBy: none
-		sourceColumn: Roles Image Links
-
-		annotation SummarizationSetBy = Automatic
-
 	column 'Roles Id'
 		dataType: int64
 		formatString: 0
 		lineageTag: 27ff2209-c4fb-49d6-8c42-9e938408641c
 		summarizeBy: none
 		sourceColumn: Roles Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Role images'
+		dataType: string
+		lineageTag: 788753e1-669e-4733-9f68-276a6e60b83d
+		summarizeBy: none
+		sourceColumn: Role images
 
 		annotation SummarizationSetBy = Automatic
 
@@ -61,9 +61,12 @@ table Roles
 				        result = {1, 2, 3, 4}
 				      in
 				        result{List.PositionOf(condition, true)}, Int64.Type
-				  )
+				  ),
+				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Role images", each Text.BeforeDelimiter([Roles Image Links], "/revision"), type text),
+				    #"Removed Columns" = Table.RemoveColumns(#"Added Custom1",{"Roles Image Links"}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Removed Columns",{"Roles Id", "Roles", "Roles Description", "Role images"})
 				in
-				  #"Added Custom"
+				    #"Reordered Columns"
 				```
 
 	annotation PBI_NavigationStepName = Navigation

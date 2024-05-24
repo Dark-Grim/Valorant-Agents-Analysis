@@ -1,0 +1,83 @@
+table 'Abilities Description'
+	isHidden
+	lineageTag: 105e6661-30a5-4014-814e-de50b28ff3eb
+
+	column Value
+		dataType: string
+		isHidden
+		lineageTag: adda66e6-323b-4df9-853a-6b36be611eef
+		summarizeBy: none
+		sourceColumn: Value
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Index
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1faaee5d-4bee-42c5-8f79-5f942535419f
+		summarizeBy: sum
+		sourceColumn: Index
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Get Descriptions'
+		dataType: string
+		isHidden
+		lineageTag: 652481c4-1567-43de-90a2-309192eb04c0
+		summarizeBy: none
+		sourceColumn: Get Descriptions
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Get Controls'
+		dataType: string
+		isHidden
+		lineageTag: ed088a00-0dbe-423f-a6c9-fde87068bf10
+		summarizeBy: none
+		sourceColumn: Get Controls
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Abilities Description' = m
+		mode: import
+		source = ```
+				let
+				    Source = #"Agent Abilities"[Agent Abilities],
+				    distinctAbilities = List.Distinct(Source),
+				    #"Converted to Table" = Table.FromList(distinctAbilities, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Added Custom" = Table.AddColumn(#"Converted to Table", "Custom", each let 
+				spliText = Text.Split([Column1], "–")
+				
+				// lastFullStopPos = Text.PositionOf(spliText,".",Occurrence.Last)
+				in 
+				spliText),
+				    #"Expanded Custom" = Table.ExpandListColumn(#"Added Custom", "Custom"),
+				    #"Removed Columns" = Table.RemoveColumns(#"Expanded Custom",{"Column1"}),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Removed Columns", "Custom", Splitter.SplitTextByEachDelimiter({"."}, QuoteStyle.Csv, true), {"Custom.1", "Custom.2"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Custom.1", type text}, {"Custom.2", type text}}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Changed Type",{{"Custom.2", Text.Trim, type text}}),
+				    #"Unpivoted Columns" = Table.UnpivotOtherColumns(#"Trimmed Text", {}, "Attribute", "Value"),
+				    #"Filtered Rows" = Table.SelectRows(#"Unpivoted Columns", each ([Value] <> "")),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Filtered Rows",{"Attribute"}),
+				    #"Added Index" = Table.AddIndexColumn(#"Removed Columns1", "Index", 1, 1, Int64.Type),
+				    #"Added Custom1" = Table.AddColumn(#"Added Index", "Get Descriptions", each if Number.Mod([Index],2) = 0 then [Value] else null, type text),
+				    Custom1 = Table.AddColumn(#"Added Custom1", "Get Controls", each if Number.Mod([Index],2) <> 0 then [Value] else null, type text)
+				in
+				    Custom1
+				```
+
+	changedProperty = IsHidden
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
