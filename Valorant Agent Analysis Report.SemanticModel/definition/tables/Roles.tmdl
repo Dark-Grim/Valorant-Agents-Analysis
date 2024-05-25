@@ -26,11 +26,12 @@ table Roles
 
 		annotation SummarizationSetBy = Automatic
 
-	column 'Role images'
+	column 'Role Images'
 		dataType: string
-		lineageTag: 788753e1-669e-4733-9f68-276a6e60b83d
+		lineageTag: 89d0a23b-99b7-4326-bba2-fdb861644083
+		dataCategory: ImageUrl
 		summarizeBy: none
-		sourceColumn: Role images
+		sourceColumn: Role Images
 
 		annotation SummarizationSetBy = Automatic
 
@@ -64,9 +65,25 @@ table Roles
 				  ),
 				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Role images", each Text.BeforeDelimiter([Roles Image Links], "/revision"), type text),
 				    #"Removed Columns" = Table.RemoveColumns(#"Added Custom1",{"Roles Image Links"}),
-				    #"Reordered Columns" = Table.ReorderColumns(#"Removed Columns",{"Roles Id", "Roles", "Roles Description", "Role images"})
+				    #"Reordered Columns" = Table.ReorderColumns(#"Removed Columns",{"Roles Id", "Roles", "Roles Description", "Role images"}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Reordered Columns",{"Role images"}),
+				    #"Added Custom2" = Table.AddColumn(
+				    #"Removed Columns1", 
+				    "Role Images", 
+				    each 
+				      let
+				        condition = {
+				          [Roles] = "Controllers", 
+				          [Roles] = "Duelists", 
+				          [Roles] = "Initiators", 
+				          [Roles] = "Sentinels"
+				        }, 
+				        result = {"https://i.ibb.co/L5qTVHZ/Controller-Class-Symbol.png", "https://i.ibb.co/QmnbCMz/Duelist-Class-Symbol.png", "https://i.ibb.co/HYWmFfq/Initiator-Class-Symbol.png", "https://i.ibb.co/8NtLtZ5/Sentinel-Class-Symbol.png"}
+				      in
+				        result{List.PositionOf(condition, true)}
+				  )
 				in
-				    #"Reordered Columns"
+				    #"Added Custom2"
 				```
 
 	annotation PBI_NavigationStepName = Navigation
