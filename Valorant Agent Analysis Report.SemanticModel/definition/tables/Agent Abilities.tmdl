@@ -32,7 +32,7 @@ table 'Agent Abilities'
 		dataType: int64
 		formatString: 0
 		lineageTag: 443fb6a5-0a19-4de1-b5bf-9e435b223941
-		summarizeBy: none
+		summarizeBy: count
 		sourceColumn: Roles Id
 
 		annotation SummarizationSetBy = Automatic
@@ -42,6 +42,14 @@ table 'Agent Abilities'
 		lineageTag: 46209ee3-a10a-4d4e-b961-52b91e5988be
 		summarizeBy: none
 		sourceColumn: Ability Names
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Agent Name (Relationship)'
+		dataType: string
+		lineageTag: 20dc4738-e1bb-48c7-99be-98e3bfbd3e5f
+		summarizeBy: none
+		sourceColumn: Agent Name (Relationship)
 
 		annotation SummarizationSetBy = Automatic
 
@@ -109,9 +117,11 @@ table 'Agent Abilities'
 				    #"Expanded Custom" = Table.ExpandListColumn(#"Removed Columns", "Custom"),
 				    #"Added Custom3" = Table.AddColumn(#"Expanded Custom", "Ability Names", each Text.BeforeDelimiter([Custom],"(")),
 				    #"Trimmed Text" = Table.TransformColumns(#"Added Custom3",{{"Ability Names", Text.Trim, type text}}),
-				    #"Removed Columns1" = Table.RemoveColumns(#"Trimmed Text",{"Custom"})
+				    #"Removed Columns1" = Table.RemoveColumns(#"Trimmed Text",{"Custom"}),
+				    #"Inserted Text Before Delimiter" = Table.AddColumn(#"Removed Columns1", "Text Before Delimiter", each Text.BeforeDelimiter([Agent Name], " "), type text),
+				    #"Renamed Columns" = Table.RenameColumns(#"Inserted Text Before Delimiter",{{"Text Before Delimiter", "Agent Name (Relationship)"}})
 				in
-				    #"Removed Columns1"
+				    #"Renamed Columns"
 				```
 
 	annotation PBI_NavigationStepName = Navigation

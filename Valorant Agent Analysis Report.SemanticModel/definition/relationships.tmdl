@@ -1,8 +1,10 @@
 relationship AutoDetected_7511e122-be6d-4c90-a0e3-3109f360ff41
+	crossFilteringBehavior: bothDirections
 	fromColumn: 'Agent Information'.'Roles Id'
 	toColumn: Roles.'Roles Id'
 
 relationship AutoDetected_acd408b1-9f43-4ef2-8829-27351b5f9e33
+	isActive: false
 	fromColumn: 'Agent Abilities'.'Roles Id'
 	toColumn: Roles.'Roles Id'
 
@@ -11,4 +13,14 @@ relationship fb849e4f-3bb6-7a60-3f18-842f16594b1c
 	fromCardinality: one
 	fromColumn: Description.'Ability Names'
 	toColumn: 'Agent Abilities'.'Ability Names'
+
+relationship AutoDetected_40e0cf5d-f1aa-422a-a05f-0e0d2c104b63
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'BG Color Table'.Agent
+	toColumn: 'Agent Information'.Agent
+
+relationship AutoDetected_9c90b66b-98ce-4215-8fa2-e618d88e4ad8
+	fromColumn: 'Agent Abilities'.'Agent Name (Relationship)'
+	toColumn: 'Agent Information'.Agent
 

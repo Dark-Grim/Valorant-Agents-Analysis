@@ -1,0 +1,147 @@
+table 'BG Color Table'
+	lineageTag: 1aa43446-dc7f-41ce-a4d3-1e1b802e56f0
+
+	measure 'BG Selector' = SELECTEDVALUE('BG Color Table'[BG Color])
+		lineageTag: 31b96aca-f5df-4806-a8b0-935c1d4caa34
+
+	column 'BG Color'
+		dataType: string
+		lineageTag: 3b19ccdd-f444-472b-96c2-c7e8420b02ba
+		summarizeBy: none
+		sourceColumn: BG Color
+
+		annotation SummarizationSetBy = Automatic
+
+	column Agent
+		dataType: string
+		lineageTag: 7200d162-ed22-41d1-9fed-1a24632b742b
+		summarizeBy: none
+		sourceColumn: Agent
+
+		annotation SummarizationSetBy = Automatic
+
+	column Icons
+		dataType: string
+		lineageTag: 7f684c2b-26db-4f8c-bdab-c6b23a4bcbf3
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Icons
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Full Image'
+		dataType: string
+		lineageTag: a4617cbd-84d1-4282-91fa-3338c2934235
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Full Image
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'BG Color Table' = m
+		mode: import
+		source = ```
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("PdDbboMwDAbgd2G3lQYhIeHSCbCTtE6rNKmqepG20WAcUgGrxp5+zpL29pPt3/ZuF90VMYCQ0SqSY9NPsx1MtF+hE8oLxtE/mrMZvVFBWZ6hrXszeCqpitMY6aXpui+7eIUcSihR1XKub90sAyCIG3vRgRIJ4AZu9GfILTkQ5lrfamuG5sdrVgKRCeqzmWdPuUiFcL3vZhnCvEIJSYUz/XudRwT7X1CORh/rMI7lFctdbruEOkqZAPeHrR2/PYmKJcolwDSPIYEpTsrU3Qvb+7W3BOu4m6Zq3R9u5wIFqVBfjQ3PQhHKfaDSp2tsLFLuMh71eLChVckizxjig2lbG5aRHF+DVhh96uyxDZcQmiqX8jSFQkmzBCq3TWcvmLL/Aw==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"BG Color" = _t, Agent = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"BG Color", type text}, {"Agent", type text}}),
+				    #"Added Custom" = Table.AddColumn(
+				    #"Changed Type", 
+				    "Icons", 
+				    each 
+				      let
+				        condition = {
+				          [Agent] = "Brimstone", 
+				          [Agent] = "Viper", 
+				          [Agent] = "Omen", 
+				          [Agent] = "Killjoy", 
+				          [Agent] = "Cypher",
+				          [Agent] = "Sova",
+				          [Agent] = "Sage",
+				          [Agent] = "Phoenix",
+				          [Agent] = "Jett",
+				          [Agent] = "Reyna",
+				          [Agent] = "Raze",
+				          [Agent] = "Breach",
+				          [Agent] = "Skye",
+				          [Agent] = "Yoru",
+				          [Agent] = "Astra",
+				          [Agent] = "KAY/O",
+				          [Agent] = "Chamber",
+				          [Agent] = "Neon",
+				          [Agent] = "Fade",
+				          [Agent] = "Harbor",
+				          [Agent] = "Gekko",
+				          [Agent] = "Deadlock",
+				          [Agent] = "Iso",
+				          [Agent] = "Clove"
+				        }, 
+				        result = {
+				          "https://i.ibb.co/58Nj8Kt/Brimstone-icon.png",
+				          "https://i.ibb.co/sQ2kVDJ/Viper-icon.png", 
+				          "https://i.ibb.co/1dxv60w/Omen-icon.png",
+				          "https://i.ibb.co/WtMyzXR/Killjoy-icon.png", 
+				          "https://i.ibb.co/w02n1Dd/Cypher-icon.png", 
+				          "https://i.ibb.co/9wv96kT/Sova-icon.png", 
+				          "https://i.ibb.co/M8Jh85Z/Sage-icon.png", 
+				          "https://i.ibb.co/S5vQxfQ/Phoenix-icon.png", 
+				          "https://i.ibb.co/1KgBjMD/Jett-icon.png", 
+				          "https://i.ibb.co/HBmdMMS/Reyna-icon.png", 
+				          "https://i.ibb.co/3MRkYSN/Raze-icon.png", 
+				          "https://i.ibb.co/2sQCNKc/Breach-icon.png", 
+				          "https://i.ibb.co/0CymfPP/Skye-icon.png", 
+				          "https://i.ibb.co/bQ6vQkS/Yoru-icon.png", 
+				          "https://i.ibb.co/6DDcNyy/Astra-icon.png", 
+				          "https://i.ibb.co/f9zQbKW/KAYO-icon.png", 
+				          "https://i.ibb.co/980hbDw/Chamber-icon.png", 
+				          "https://i.ibb.co/KxjSzV9/Neon-icon.png", 
+				          "https://i.ibb.co/8MpH30j/Fade-icon.png", 
+				          "https://i.ibb.co/YLDPH0C/Harbor-icon.png", 
+				          "https://i.ibb.co/qmDxbyK/Gekko-icon.png", 
+				          "https://i.ibb.co/Jx3WXKZ/Deadlock-icon.png", 
+				          "https://i.ibb.co/Nn7H9fJ/Iso-icon.png", 
+				          "https://i.ibb.co/VHvCq5X/Clove-icon.png"}
+				      in
+				        result{List.PositionOf(condition, true)}),
+				
+				        #"Added Custom1" = Table.AddColumn(
+				    #"Added Custom", 
+				    "Full Image", 
+				    each 
+				      let
+				        condition = {
+				          [Agent] = "Brimstone", 
+				          [Agent] = "Viper", 
+				          [Agent] = "Omen", 
+				          [Agent] = "Killjoy", 
+				          [Agent] = "Cypher",
+				          [Agent] = "Sova",
+				          [Agent] = "Sage",
+				          [Agent] = "Phoenix",
+				          [Agent] = "Jett",
+				          [Agent] = "Reyna",
+				          [Agent] = "Raze",
+				          [Agent] = "Breach",
+				          [Agent] = "Skye",
+				          [Agent] = "Yoru",
+				          [Agent] = "Astra",
+				          [Agent] = "KAY/O",
+				          [Agent] = "Chamber",
+				          [Agent] = "Neon",
+				          [Agent] = "Fade",
+				          [Agent] = "Harbor",
+				          [Agent] = "Gekko",
+				          [Agent] = "Deadlock",
+				          [Agent] = "Iso",
+				          [Agent] = "Clove"
+				        }, 
+				        result = {"https://i.ibb.co/Stwz7Dy/Brimstone-Artwork-Full.png", "https://i.ibb.co/98KbRzH/Viper-Artwork-Full.png", "https://i.ibb.co/T4T6k1J/Omen-Artwork-Full.png", "https://i.ibb.co/3d0FYCX/Killjoy-Artwork-Full.png", "https://i.ibb.co/0QD7mbD/Cypher-Artwork-Full.png", "https://i.ibb.co/10HTNvJ/Sova-Artwork-Full.png", "https://i.ibb.co/6s1YjpH/Sage-Artwork-Full.png", "https://i.ibb.co/gMbf7kV/Phoenix-Artwork-Full.png", "https://i.ibb.co/H4wNNWd/Jett-Artwork-Full.png", "https://i.ibb.co/C9My1Hz/Reyna-Artwork-Full.png", "https://i.ibb.co/vqt47YD/Raze-Artwork-Full.png", "https://i.ibb.co/Dpfv1Jv/Breach-Artwork-Full.png", "https://i.ibb.co/9nSWqZ9/Skye-Artwork-Full.png", "https://i.ibb.co/ysgFb2F/Yoru-Artwork-Full.png", "https://i.ibb.co/4TwNF9Q/Astra-Artwork-Full.png", "https://i.ibb.co/MyTyjPQ/KAYO-Artwork-Full.png", "https://i.ibb.co/gTqbx9r/Chamber-Artwork-Full.png", "https://i.ibb.co/KFgWK0g/Neon-Artwork-Full.png", "https://i.ibb.co/MSq0dC8/Fade-Artwork-Full.png", "https://i.ibb.co/zN2qqDd/Harbor-Artwork-Full.png", "https://i.ibb.co/tHNhQ2d/Gekko-Artwork-Full.png", "https://i.ibb.co/CPG27Hz/Deadlock-Artwork-Full.png", "https://i.ibb.co/KhnncVH/Iso-Artwork-Full.png", "https://i.ibb.co/g7dXKV6/Clove-Artwork-Full.png"}
+				      in
+				        result{List.PositionOf(condition, true)})
+				in
+				    #"Added Custom1"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

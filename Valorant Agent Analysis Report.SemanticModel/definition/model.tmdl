@@ -6,7 +6,7 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-annotation PBI_QueryOrder = ["Agent Information","Roles","Agent Abilities","Abilities Description","Description"]
+annotation PBI_QueryOrder = ["Agent Information","Roles","Agent Abilities","Abilities Description","Description","BG Color Table"]
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
@@ -20,6 +20,7 @@ ref table Roles
 ref table 'Agent Abilities'
 ref table 'Abilities Description'
 ref table Description
+ref table 'BG Color Table'
 
 ref cultureInfo en-US
 

@@ -4,14 +4,14 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 208,
+        "x": 286.60072942393697,
         "y": 0
       },
       "nodes": [
         {
           "location": {
-            "x": 303,
-            "y": 490.5
+            "x": 121.98901299540819,
+            "y": 670.25396626150439
           },
           "nodeIndex": "Roles",
           "nodeLineageTag": "1fcf4f27-21d5-428e-853d-ba9a0680f531",
@@ -19,12 +19,12 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 2
         },
         {
           "location": {
-            "x": 35,
-            "y": 147.5
+            "x": 0,
+            "y": 165.53235696428925
           },
           "nodeIndex": "Agent Abilities",
           "nodeLineageTag": "ad905b38-f7e3-4c8c-bfd4-24fa7435df39",
@@ -32,12 +32,12 @@
             "height": 211,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 6
         },
         {
           "location": {
-            "x": 721,
-            "y": 434.5
+            "x": 723.71489628456277,
+            "y": 444.5647139285785
           },
           "nodeIndex": "Agent Information",
           "nodeLineageTag": "68ed811a-dfba-4572-98f5-38afd1d1596f",
@@ -49,8 +49,8 @@
         },
         {
           "location": {
-            "x": 771,
-            "y": 35
+            "x": 752.14468885368842,
+            "y": 0
           },
           "nodeIndex": "Abilities Description",
           "nodeLineageTag": "105e6661-30a5-4014-814e-de50b28ff3eb",
@@ -62,7 +62,7 @@
         },
         {
           "location": {
-            "x": 459,
+            "x": 478.82722817396188,
             "y": 0
           },
           "nodeIndex": "Description",
@@ -72,9 +72,63 @@
             "width": 234
           },
           "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1081.1947458352215,
+            "y": 152.7725894700539
+          },
+          "nodeIndex": "BG Color Table",
+          "nodeLineageTag": "1aa43446-dc7f-41ce-a4d3-1e1b802e56f0",
+          "size": {
+            "height": 277.58546842740577,
+            "width": 234
+          },
+          "zIndex": 1
         }
       ],
       "name": "All tables",
+      "zoomValue": 79.553182037699784,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    },
+    {
+      "ordinal": 1,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 463,
+            "y": 0
+          },
+          "nodeIndex": "BG Color Table",
+          "nodeLineageTag": "1aa43446-dc7f-41ce-a4d3-1e1b802e56f0",
+          "size": {
+            "height": 206,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 135
+          },
+          "nodeIndex": "Agent Information",
+          "nodeLineageTag": "68ed811a-dfba-4572-98f5-38afd1d1596f",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 6
+        }
+      ],
+      "name": "Image Layout",
       "zoomValue": 100,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
