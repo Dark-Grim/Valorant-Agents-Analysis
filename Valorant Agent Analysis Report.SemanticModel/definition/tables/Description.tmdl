@@ -57,9 +57,10 @@ table Description
 				textBeforeDelimiter, type text),
 				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Ability Names", each Text.Trim(Text.BeforeDelimiter([Controls],"(")," "), type text),
 				    #"Filtered Rows2" = Table.SelectRows(#"Added Custom1", each ([Default Controls] <> "Passive")),
-				    #"Removed Columns" = Table.RemoveColumns(#"Filtered Rows2",{"Controls"})
+				    #"Removed Columns" = Table.RemoveColumns(#"Filtered Rows2",{"Controls"}),
+				    #"Trimmed Text" = Table.TransformColumns(#"Removed Columns",{{"Ability Names", Text.Trim, type text}})
 				in
-				    #"Removed Columns"
+				    #"Trimmed Text"
 				```
 
 	annotation PBI_NavigationStepName = Navigation
